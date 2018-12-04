@@ -184,7 +184,7 @@ var Config = &Configuration{
 	MaxValueCount:        100,
 	MaxInCount:           10,
 	IdxPrefix:            "idx_",
-	UkPrefix:             "uk_",
+	UkPrefix:             "uniq_",
 	MaxSubqueryDepth:     5,
 	MaxVarcharLength:     1024,
 

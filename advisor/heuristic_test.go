@@ -3083,7 +3083,7 @@ func TestRuleIdxPrefix(t *testing.T) {
 		},
 		{
 			`ALTER TABLE tbl ADD INDEX idx_a (a)`,
-			`ALTER TABLE tbl ADD UNIQUE INDEX uk_a (a)`,
+			`ALTER TABLE tbl ADD UNIQUE INDEX uniq_a (a)`,
 		},
 	}
 	for _, sql := range sqls[0] {
