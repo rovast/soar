@@ -775,9 +775,9 @@ func init() {
 		"KEY.007": {
 			Item:     "KEY.007",
 			Severity: "L4",
-			Summary:  "未指定主键或主键非 int 或 bigint",
-			Content:  `未指定主键或主键非 int 或 bigint，建议将主键设置为 int unsigned 或 bigint unsigned。`,
-			Case:     "CREATE TABLE tbl (a int);",
+			Summary:  "未指定主键或主键非 bigint",
+			Content:  `未指定主键或主键非 bigint，建议将主键设置为 bigint unsigned。`,
+			Case:     "CREATE TABLE tbl (a bigint);",
 			Func:     (*Query4Audit).RulePKNotInt,
 		},
 		"KEY.008": {

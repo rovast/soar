@@ -2619,7 +2619,8 @@ func (q *Query4Audit) RulePKNotInt() Rule {
 			for _, col := range s.TableSpec.Columns {
 				if pk.String() == col.Name.String() {
 					switch col.Type.Type {
-					case "int", "bigint", "integer":
+					//case "int", "bigint", "integer":
+					case "bigint":
 						if !col.Type.Unsigned {
 							rule = HeuristicRules["KEY.007"]
 						}
