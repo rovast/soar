@@ -1119,7 +1119,7 @@ func init() {
 			Summary:  "建议使用 datetime 替换 datetime 类型",
 			Content:  `建议使用 datetime 替换 datetime 类型，且默认值设置为 1970-01-01 00:00:00。 datetime 类型能保存大范围的值，从1001年到9999年，且与时区无关。使用8个字节的存储空间（比 timestamp 多出4字节）`,
 			Case:     "CREATE TABLE tbl (a datetime);",
-			Func:     (*Query4Audit).RuleNotDateTime,
+			Func:     (*Query4Audit).RuleNotSuggestedFieldType,
 		},
 		"SKEY.006": {
 			Item:     "SKEY.006",
@@ -1136,6 +1136,14 @@ func init() {
 			Content:  "数据库必须字段 （`last_update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间'; `is_del` TINYINT (1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否删除 0：未删除 1：已删除'）",
 			Case:     "CREATE TABLE tbl （`last_update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间'; `is_del` TINYINT (1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否删除 0：未删除 1：已删除'）;",
 			Func:     (*Query4Audit).RuleRequiredFields,
+		},
+		"SKEY.010": {
+			Item:     "SKEY.010",
+			Severity: "L1",
+			Summary:  "不建议使用大字段 TEXT BLOB",
+			Content:  "BLOB 和 TEXT 都是为存储很大的数据而设计的字符串数据类型，且性能开销较大，请检查是否有必要使用",
+			Case:     "CREATE TABLE tbl （a TEXT）;",
+			Func:     (*Query4Audit).RuleNotSuggestedFieldType,
 		},
 	}
 }

@@ -3442,7 +3442,7 @@ func RuleMySQLError(item string, err error) Rule {
 
 // ++++++++++++++ 自增的一些规则 +++++++++++++++ //
 // SKEY.005 时间类型使用 datetime
-func (q *Query4Audit) RuleNotDateTime() Rule {
+func (q *Query4Audit) RuleNotSuggestedFieldType() Rule {
 	var rule = q.RuleOK()
 	switch s := q.Stmt.(type) {
 	case *sqlparser.DDL:
@@ -3457,9 +3457,12 @@ func (q *Query4Audit) RuleNotDateTime() Rule {
 				case "timestamp":
 					// 此字段无需检测
 					if col.Name.String() != "last_update_time" {
-						rule = HeuristicRules["SKEY.005"]
-						return rule
+						return HeuristicRules["SKEY.005"]
 					}
+				case "blob":
+					return HeuristicRules["SKEY.010"]
+				case "text":
+					return HeuristicRules["SKEY.010"]
 				default:
 					rule = q.RuleOK()
 				}

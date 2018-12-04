@@ -1062,6 +1062,16 @@ CREATE TABLE tbl （`last_update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMEST
 ```sql
 CREATE TABLE tbl （`last_update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间'; `is_del` TINYINT (1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否删除 0：未删除 1：已删除'）;
 ```
+## 不建议使用大字段 TEXT BLOB
+
+* **Item**:SKEY.010
+* **Severity**:L1
+* **Content**:BLOB 和 TEXT 都是为存储很大的数据而设计的字符串数据类型，且性能开销较大，请检查是否有必要使用
+* **Case**:
+
+```sql
+CREATE TABLE tbl （a TEXT）;
+```
 ## '!=' 运算符是非标准的
 
 * **Item**:STA.001
