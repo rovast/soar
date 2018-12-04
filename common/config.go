@@ -186,7 +186,7 @@ var Config = &Configuration{
 	IdxPrefix:            "idx_",
 	UkPrefix:             "uniq_",
 	MaxSubqueryDepth:     5,
-	MaxVarcharLength:     1024,
+	MaxVarcharLength:     255,
 
 	MarkdownExtensions: 94,
 	MarkdownHTMLFlags:  0,
