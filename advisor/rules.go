@@ -1129,6 +1129,14 @@ func init() {
 			Case:     "CREATE TABLE tbl （`last_update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间'; `is_del` TINYINT (1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否删除 0：未删除 1：已删除'）;",
 			Func:     (*Query4Audit).RuleRequiredFields,
 		},
+		"SKEY.006a": {
+			Item:     "SKEY.006a",
+			Severity: "L4",
+			Summary:  "last_update_time 和 is_del 类型不对",
+			Content:  "数据库必须字段 （`last_update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间'; `is_del` TINYINT (1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否删除 0：未删除 1：已删除'）",
+			Case:     "CREATE TABLE tbl （`last_update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间'; `is_del` TINYINT (1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否删除 0：未删除 1：已删除'）;",
+			Func:     (*Query4Audit).RuleRequiredFields,
+		},
 	}
 }
 

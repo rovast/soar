@@ -3484,9 +3484,19 @@ func (q *Query4Audit) RuleRequiredFields() Rule {
 			for _, col := range s.TableSpec.Columns {
 				switch col.Name.String() {
 				case "last_update_time":
+					// 检测字段类型
+					if col.Type.Type != "datetime" && col.Type.Type != "timestamp" {
+						return HeuristicRules["SEY.006a"]
+					}
+
 					hitCount++
 					break
 				case "is_del":
+					// 检测字段类型
+					if col.Type.Type != "tinyint" {
+						return HeuristicRules["SKEY.006a"]
+					}
+
 					hitCount++
 					break
 				}
