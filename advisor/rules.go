@@ -1145,6 +1145,14 @@ func init() {
 			Case:     "CREATE TABLE tbl （a TEXT）;",
 			Func:     (*Query4Audit).RuleNotSuggestedFieldType,
 		},
+		"SKEY.011": {
+			Item:     "SKEY.011",
+			Severity: "L1",
+			Summary:  "整形建议使用 unsigned",
+			Content:  "请检查整形是否有负数场景，如无特殊场景，建议使用 unsigned",
+			Case:     "CREATE TABLE tbl （a int unsigned）;",
+			Func:     (*Query4Audit).RuleNotSuggestedFieldType,
+		},
 	}
 }
 

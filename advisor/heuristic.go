@@ -3459,10 +3459,13 @@ func (q *Query4Audit) RuleNotSuggestedFieldType() Rule {
 					if col.Name.String() != "last_update_time" {
 						return HeuristicRules["SKEY.005"]
 					}
-				case "blob":
+				case "blob", "text":
 					return HeuristicRules["SKEY.010"]
-				case "text":
-					return HeuristicRules["SKEY.010"]
+				case "tinyint", "mediumint", "int", "bigint":
+					if !col.Type.Unsigned {
+						return HeuristicRules["SKEY.011"]
+					}
+
 				default:
 					rule = q.RuleOK()
 				}

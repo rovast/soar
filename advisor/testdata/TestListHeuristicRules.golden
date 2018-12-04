@@ -1072,6 +1072,16 @@ CREATE TABLE tbl （`last_update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMEST
 ```sql
 CREATE TABLE tbl （a TEXT）;
 ```
+## 整形建议使用 unsigned
+
+* **Item**:SKEY.011
+* **Severity**:L1
+* **Content**:请检查整形是否有负数场景，如无特殊场景，建议使用 unsigned
+* **Case**:
+
+```sql
+CREATE TABLE tbl （a int unsigned）;
+```
 ## '!=' 运算符是非标准的
 
 * **Item**:STA.001
