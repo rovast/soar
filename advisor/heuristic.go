@@ -3455,7 +3455,7 @@ func (q *Query4Audit) RuleNotDateTime() Rule {
 			for _, col := range s.TableSpec.Columns {
 				switch col.Type.Type {
 				case "timestamp":
-					rule = HeuristicRules["SKEY.007"]
+					rule = HeuristicRules["SKEY.005"]
 					return rule
 				default:
 					rule = q.RuleOK()
