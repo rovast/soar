@@ -3441,7 +3441,7 @@ func RuleMySQLError(item string, err error) Rule {
 }
 
 // ++++++++++++++ 自增的一些规则 +++++++++++++++ //
-// SKEY.007 时间类型使用 datetime
+// SKEY.005 时间类型使用 datetime
 func (q *Query4Audit) RuleNotDateTime() Rule {
 	var rule = q.RuleOK()
 	switch s := q.Stmt.(type) {
@@ -3455,11 +3455,45 @@ func (q *Query4Audit) RuleNotDateTime() Rule {
 			for _, col := range s.TableSpec.Columns {
 				switch col.Type.Type {
 				case "timestamp":
-					rule = HeuristicRules["SKEY.005"]
-					return rule
+					// 此字段无需检测
+					if col.Name.String() != "last_update_time" {
+						rule = HeuristicRules["SKEY.005"]
+						return rule
+					}
 				default:
 					rule = q.RuleOK()
 				}
+			}
+		}
+	}
+	return rule
+}
+
+// SKEY.006 数据库必须字段
+func (q *Query4Audit) RuleRequiredFields() Rule {
+	var rule = q.RuleOK()
+	switch s := q.Stmt.(type) {
+	case *sqlparser.DDL:
+		if s.Action == "create" {
+			if s.TableSpec == nil {
+				return rule
+			}
+
+			// 必须包含 last_update_time 和 is_del
+			hitCount := 0
+			for _, col := range s.TableSpec.Columns {
+				switch col.Name.String() {
+				case "last_update_time":
+					hitCount++
+					break
+				case "is_del":
+					hitCount++
+					break
+				}
+			}
+
+			if hitCount != 2 {
+				rule = HeuristicRules["SKEY.006"]
 			}
 		}
 	}

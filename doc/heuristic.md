@@ -1042,6 +1042,16 @@ delete from table where col = 'condition'
 ```sql
 CREATE TABLE tbl (a datetime);
 ```
+## 缺少数据库必须字段 last\_update\_time 和 is\_del
+
+* **Item**:SKEY.006
+* **Severity**:L4
+* **Content**:数据库必须字段 （\`last\_update\_time\` TIMESTAMP NOT NULL DEFAULT CURRENT\_TIMESTAMP ON UPDATE CURRENT\_TIMESTAMP COMMENT '最后更新时间'; \`is\_del\` TINYINT (1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否删除 0：未删除 1：已删除'）
+* **Case**:
+
+```sql
+CREATE TABLE tbl （`last_update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间'; `is_del` TINYINT (1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否删除 0：未删除 1：已删除'）;
+```
 ## '!=' 运算符是非标准的
 
 * **Item**:STA.001
