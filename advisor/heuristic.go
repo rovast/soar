@@ -3439,3 +3439,29 @@ func RuleMySQLError(item string, err error) Rule {
 		}
 	}
 }
+
+// ++++++++++++++ 自增的一些规则 +++++++++++++++ //
+// SKEY.007 时间类型使用 datetime
+func (q *Query4Audit) RuleNotDateTime() Rule {
+	var rule = q.RuleOK()
+	switch s := q.Stmt.(type) {
+	case *sqlparser.DDL:
+		if s.Action == "create" {
+			if s.TableSpec == nil {
+				return rule
+			}
+
+			// 主键非int, bigint类型
+			for _, col := range s.TableSpec.Columns {
+				switch col.Type.Type {
+				case "timestamp":
+					rule = HeuristicRules["SKEY.007"]
+					return rule
+				default:
+					rule = q.RuleOK()
+				}
+			}
+		}
+	}
+	return rule
+}

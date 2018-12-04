@@ -506,7 +506,7 @@ CREATE TABLE tab (a INT(1));
 
 * **Item**:COL.017
 * **Severity**:L2
-* **Content**:varchar 是可变长字符串，不预先分配存储空间，长度不要超过1024，如果存储长度过长 MySQL 将定义字段类型为 text，独立出来一张表，用主键来对应，避免影响其它字段索引效率。
+* **Content**:varchar 是可变长字符串，不预先分配存储空间，长度不要超过255，如果存储长度过长 MySQL 将定义字段类型为 text，独立出来一张表，用主键来对应，避免影响其它字段索引效率。
 * **Case**:
 
 ```sql
@@ -782,15 +782,15 @@ CREATE TABLE tbl ( a int, b int, c int, KEY idx_a (`a`),KEY idx_b(`b`),KEY idx_c
 ```sql
 CREATE TABLE tbl ( a int, b int, c int, PRIMARY KEY(`a`,`b`,`c`));
 ```
-## 未指定主键或主键非 int 或 bigint
+## 未指定主键或主键非 bigint
 
 * **Item**:KEY.007
 * **Severity**:L4
-* **Content**:未指定主键或主键非 int 或 bigint，建议将主键设置为 int unsigned 或 bigint unsigned。
+* **Content**:未指定主键或主键非 bigint，建议将主键设置为 bigint unsigned。
 * **Case**:
 
 ```sql
-CREATE TABLE tbl (a int);
+CREATE TABLE tbl (a bigint);
 ```
 ## ORDER BY 多个列但排序方向不同时可能无法使用索引
 
@@ -1032,6 +1032,16 @@ create table test(id int,name varchar(20) not null,password varchar(200)not null
 ```sql
 delete from table where col = 'condition'
 ```
+## 时间类型未使用 datetime 类型
+
+* **Item**:SKEY.007
+* **Severity**:L4
+* **Content**:时间类型未使用 datetime，建议时间类型设置为 datetime。
+* **Case**:
+
+```sql
+CREATE TABLE tbl (a datetime);
+```
 ## '!=' 运算符是非标准的
 
 * **Item**:STA.001
@@ -1056,7 +1066,7 @@ select col from sakila. film
 
 * **Item**:STA.003
 * **Severity**:L1
-* **Content**:建议普通二级索引以idx\_为前缀，唯一索引以uk\_为前缀。
+* **Content**:建议普通二级索引以idx\_为前缀，唯一索引以uniq\_为前缀。
 * **Case**:
 
 ```sql
@@ -1176,7 +1186,7 @@ CREATE TABLE tbl (a int) AUTO_INCREMENT = 10;
 
 * **Item**:TBL.005
 * **Severity**:L4
-* **Content**:表字符集只允许设置为utf8,utf8mb4
+* **Content**:表字符集只允许设置为utf8mb4
 * **Case**:
 
 ```sql
