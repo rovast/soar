@@ -1116,8 +1116,8 @@ func init() {
 		"SKEY.005": {
 			Item:     "SKEY.005",
 			Severity: "L4",
-			Summary:  "建议使用 datetime 替换 datetime 类型",
-			Content:  `建议使用 datetime 替换 datetime 类型，且默认值设置为 1970-01-01 00:00:00。 datetime 类型能保存大范围的值，从1001年到9999年，且与时区无关。使用8个字节的存储空间（比 timestamp 多出4字节）`,
+			Summary:  "建议使用 datetime 替换 timestamp 类型",
+			Content:  `建议使用 datetime 替换 timestamp 类型，且默认值设置为 1970-01-01 00:00:00。 datetime 类型能保存大范围的值，从1001年到9999年，且与时区无关。使用8个字节的存储空间（比 timestamp 多出4字节）`,
 			Case:     "CREATE TABLE tbl (a datetime);",
 			Func:     (*Query4Audit).RuleNotSuggestedFieldType,
 		},

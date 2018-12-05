@@ -1032,11 +1032,11 @@ create table test(id int,name varchar(20) not null,password varchar(200)not null
 ```sql
 delete from table where col = 'condition'
 ```
-## 建议使用 datetime 替换 datetime 类型
+## 建议使用 datetime 替换 timestamp 类型
 
 * **Item**:SKEY.005
 * **Severity**:L4
-* **Content**:建议使用 datetime 替换 datetime 类型，且默认值设置为 1970-01-01 00:00:00。 datetime 类型能保存大范围的值，从1001年到9999年，且与时区无关。使用8个字节的存储空间（比 timestamp 多出4字节）
+* **Content**:建议使用 datetime 替换 timestamp 类型，且默认值设置为 1970-01-01 00:00:00。 datetime 类型能保存大范围的值，从1001年到9999年，且与时区无关。使用8个字节的存储空间（比 timestamp 多出4字节）
 * **Case**:
 
 ```sql
